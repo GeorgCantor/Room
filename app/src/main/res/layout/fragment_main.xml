@@ -7,6 +7,18 @@
     android:background="@color/colorAccent"
     tools:context=".view.MainActivity">
 
+    <TextView
+        android:id="@+id/task_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:textColor="@color/colorBlack"
+        android:textSize="42sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="My tasks" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -23,10 +35,10 @@
             style="@style/Widget.MaterialComponents.BottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:menu="@menu/bottom_bar_menu"
             android:layout_gravity="bottom"
             app:backgroundTint="@color/colorPrimary"
             app:fabAlignmentMode="center"
+            app:menu="@menu/bottom_bar_menu"
             app:navigationIcon="@drawable/ic_dehaze" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

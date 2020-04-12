@@ -11,6 +11,10 @@
         <action
             android:id="@+id/action_mainFragment_to_newListFragment"
             app:destination="@id/newListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_self"
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="true" />
     </fragment>
 
     <fragment

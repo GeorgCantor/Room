@@ -2,6 +2,7 @@ package com.example.notes.view.fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.notes.db.entity.Task
 import com.example.notes.db.entity.TaskList
 import com.example.notes.repo.DbRepository
 import io.reactivex.Observable
@@ -54,6 +55,14 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
     fun deleteTaskList(taskList: TaskList) {
         Observable.fromCallable {
             repository.delete(taskList)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
+    fun insertTask(task: Task) {
+        Observable.fromCallable {
+            repository.insert(task)
         }
             .subscribeOn(Schedulers.io())
             .subscribe()

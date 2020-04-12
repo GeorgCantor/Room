@@ -3,4 +3,8 @@
 
     <string name="my_tasks">My Tasks</string>
     <string name="create_list">Создать список</string>
+    <string name="creating_list">Создание списка</string>
+    <string name="done">Готово</string>
+    <string name="input_list_name">Введите название списка</string>
+    <string name="save">Сохранить</string>
 </resources>

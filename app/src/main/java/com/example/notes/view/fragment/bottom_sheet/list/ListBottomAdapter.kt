@@ -1,4 +1,4 @@
-package com.example.notes.view.fragment.bottom_sheet
+package com.example.notes.view.fragment.bottom_sheet.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -20,9 +20,10 @@ class ListBottomAdapter(
         lists.addAll(taskLists)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ListBottomViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.item_task_list, parent, false)
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        ListBottomViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_task_list, parent, false)
+        )
 
     override fun getItemCount() = lists.size
 

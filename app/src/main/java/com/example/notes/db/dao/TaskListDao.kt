@@ -2,6 +2,7 @@ package com.example.notes.db.dao
 
 import androidx.room.*
 import com.example.notes.db.entity.TaskList
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 @Dao
@@ -11,10 +12,10 @@ interface TaskListDao {
     fun getTaskListById(id: Int): Flowable<TaskList>
 
     @Query("SELECT * FROM TaskList")
-    fun getTaskLists(): Flowable<List<TaskList>>
+    fun getTaskLists(): Flowable<MutableList<TaskList>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(taskList: TaskList): Long
+    fun insert(taskList: TaskList): Completable
 
     @Delete
     fun delete(taskList: TaskList)

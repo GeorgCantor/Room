@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.notes.R
+import com.example.notes.model.db.entity.Task
 import com.example.notes.util.Constants.ARG_SELECTED
+import com.example.notes.util.Constants.ARG_TASK
 import com.example.notes.util.getSelectedListId
 import com.example.notes.util.observe
 import com.example.notes.util.saveSelectedListId
@@ -52,7 +55,21 @@ class MainFragment : Fragment() {
 
             tasks.observe(viewLifecycleOwner) {
                 tasks_recycler.adapter = TasksAdapter(it) {
-                    context?.shortToast(it.taskName)
+                    findNavController(this@MainFragment).navigate(
+                        R.id.action_mainFragment_to_taskFragment,
+                        Bundle().apply {
+                            putParcelable(
+                                ARG_TASK, Task(
+                                    id = it.id,
+                                    taskListId = it.taskListId,
+                                    taskName = it.taskName,
+                                    taskDetails = it.taskDetails,
+                                    taskDate = it.taskDate,
+                                    taskCompleted = it.taskCompleted
+                                )
+                            )
+                        }
+                    )
                 }
             }
         }

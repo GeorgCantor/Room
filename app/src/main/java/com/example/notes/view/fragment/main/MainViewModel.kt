@@ -3,6 +3,7 @@ package com.example.notes.view.fragment.main
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.notes.model.CommonTask
+import com.example.notes.model.db.entity.Subtask
 import com.example.notes.model.db.entity.Task
 import com.example.notes.model.db.entity.TaskList
 import com.example.notes.repo.DbRepository
@@ -67,7 +68,7 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
                             it.map {
                                 commonTasks.add(
                                     CommonTask(
-                                        id = it.id,
+                                        id = it.taskId,
                                         taskListId = it.taskId,
                                         taskName = it.subtaskName,
                                         taskDetails = it.subtaskName,
@@ -114,6 +115,14 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
     fun insertTask(task: Task) {
         Observable.fromCallable {
             repository.insert(task)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
+    fun insertSubtask(subtask: Subtask) {
+        Observable.fromCallable {
+            repository.insert(subtask)
         }
             .subscribeOn(Schedulers.io())
             .subscribe()

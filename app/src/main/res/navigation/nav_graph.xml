@@ -15,11 +15,19 @@
             android:id="@+id/action_mainFragment_self"
             app:destination="@id/mainFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_taskFragment"
+            app:destination="@id/taskFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/newListFragment"
         android:name="com.example.notes.view.fragment.new_list.NewListFragment"
         android:label="NewListFragment" />
+
+    <fragment
+        android:id="@+id/taskFragment"
+        android:name="com.example.notes.view.fragment.task.TaskFragment"
+        android:label="TaskFragment" />
 
 </navigation>

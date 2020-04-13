@@ -26,6 +26,7 @@ class TasksAdapter(
 
     init {
         this.tasks.addAll(tasks)
+        this.tasks.sortBy { it.id }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

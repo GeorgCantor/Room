@@ -1,9 +1,11 @@
 package com.example.notes.model.db.entity
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 import java.util.*
 
 @Entity(
@@ -16,6 +18,7 @@ import java.util.*
         )
     ]
 )
+@Parcelize
 data class Task(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -35,4 +38,4 @@ data class Task(
 
     @ColumnInfo(name = "completed")
     val taskCompleted: Boolean = false
-)
+) : Parcelable

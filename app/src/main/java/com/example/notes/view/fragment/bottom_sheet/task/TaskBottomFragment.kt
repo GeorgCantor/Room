@@ -6,10 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.notes.R
 import com.example.notes.model.db.entity.Task
-import com.example.notes.util.getSelectedListId
-import com.example.notes.util.observe
-import com.example.notes.util.shortToast
-import com.example.notes.util.showKeyBoard
+import com.example.notes.util.*
 import com.example.notes.view.fragment.main.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_task_bottom.*
@@ -46,7 +43,7 @@ class TaskBottomFragment : BottomSheetDialogFragment() {
                 val task = task_edit_text.text
                 if (task.isNotBlank()) insertTask(
                     Task(
-                        id = (0..999999).random(),
+                        id = getRandomId(),
                         taskListId = context?.getSelectedListId() ?: 0,
                         taskName = task.toString(),
                         taskDetails = task.toString(),

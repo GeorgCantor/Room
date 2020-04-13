@@ -27,3 +27,5 @@ fun Activity.showKeyBoard() {
 fun Context.saveSelectedListId(id: Int) = PreferenceManager(this).saveInt(ARG_SELECTED, id)
 
 fun Context.getSelectedListId(): Int = PreferenceManager(this).getInt(ARG_SELECTED) ?: 0
+
+fun getRandomId() = (0..999999).random()

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.notes.R
 import com.example.notes.model.db.entity.TaskList
+import com.example.notes.util.getRandomId
 import com.example.notes.view.fragment.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_new_list.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -33,7 +34,7 @@ class NewListFragment : Fragment() {
         cancel_image.setOnClickListener { activity?.onBackPressed() }
         done_text.setOnClickListener {
             val name = list_name_edit_text.text.toString()
-            if (name.isNotBlank()) viewModel.insertTaskList(TaskList((0..999999).random(), name))
+            if (name.isNotBlank()) viewModel.insertTaskList(TaskList(getRandomId(), name))
             activity?.onBackPressed()
         }
     }

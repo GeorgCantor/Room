@@ -1,7 +1,7 @@
-package com.example.notes.db.dao
+package com.example.notes.model.db.dao
 
 import androidx.room.*
-import com.example.notes.db.entity.Task
+import com.example.notes.model.db.entity.Task
 import io.reactivex.Flowable
 
 @Dao

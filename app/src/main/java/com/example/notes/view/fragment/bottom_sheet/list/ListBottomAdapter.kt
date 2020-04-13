@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notes.R
-import com.example.notes.db.entity.TaskList
+import com.example.notes.model.db.entity.TaskList
 import kotlinx.android.synthetic.main.item_task_list.view.*
 
 class ListBottomAdapter(

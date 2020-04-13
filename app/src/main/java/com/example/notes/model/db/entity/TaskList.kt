@@ -1,4 +1,4 @@
-package com.example.notes.db.entity
+package com.example.notes.model.db.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

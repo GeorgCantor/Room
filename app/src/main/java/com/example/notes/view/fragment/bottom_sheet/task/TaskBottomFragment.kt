@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.notes.R
+import com.example.notes.model.db.entity.Task
+import com.example.notes.util.getSelectedListId
 import com.example.notes.util.observe
 import com.example.notes.util.shortToast
 import com.example.notes.util.showKeyBoard
-import com.example.notes.view.fragment.MainViewModel
+import com.example.notes.view.fragment.main.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_task_bottom.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
+import java.util.*
 
 class TaskBottomFragment : BottomSheetDialogFragment() {
 
@@ -37,6 +40,21 @@ class TaskBottomFragment : BottomSheetDialogFragment() {
         with(viewModel) {
             error.observe(viewLifecycleOwner) {
                 context?.shortToast(it)
+            }
+
+            save_text.setOnClickListener {
+                val task = task_edit_text.text
+                if (task.isNotBlank()) insertTask(
+                    Task(
+                        id = (0..999999).random(),
+                        taskListId = context?.getSelectedListId() ?: 0,
+                        taskName = task.toString(),
+                        taskDetails = task.toString(),
+                        taskDate = Date(),
+                        taskCompleted = false
+                    )
+                )
+                this@TaskBottomFragment.dismiss()
             }
         }
     }

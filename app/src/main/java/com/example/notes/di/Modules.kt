@@ -1,8 +1,8 @@
 package com.example.notes.di
 
-import com.example.notes.db.TasksDatabase
+import com.example.notes.model.db.TasksDatabase
 import com.example.notes.repo.DbRepository
-import com.example.notes.view.fragment.MainViewModel
+import com.example.notes.view.fragment.main.MainViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

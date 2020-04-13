@@ -1,4 +1,4 @@
-package com.example.notes.db
+package com.example.notes.model.db
 
 import android.content.Context
 import androidx.room.Database
@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.notes.R
-import com.example.notes.db.dao.SubtaskDao
-import com.example.notes.db.dao.TaskDao
-import com.example.notes.db.dao.TaskListDao
-import com.example.notes.db.entity.Subtask
-import com.example.notes.db.entity.Task
-import com.example.notes.db.entity.TaskList
+import com.example.notes.model.db.dao.SubtaskDao
+import com.example.notes.model.db.dao.TaskDao
+import com.example.notes.model.db.dao.TaskListDao
+import com.example.notes.model.db.entity.Subtask
+import com.example.notes.model.db.entity.Task
+import com.example.notes.model.db.entity.TaskList
 import java.util.concurrent.Executors
 
 @Database(entities = [TaskList::class, Task::class, Subtask::class], version = 1)

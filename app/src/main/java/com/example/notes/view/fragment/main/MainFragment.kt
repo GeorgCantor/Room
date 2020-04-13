@@ -1,4 +1,4 @@
-package com.example.notes.view.fragment
+package com.example.notes.view.fragment.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.notes.R
 import com.example.notes.util.Constants.ARG_SELECTED
-import com.example.notes.util.PreferenceManager
+import com.example.notes.util.getSelectedListId
 import com.example.notes.util.observe
+import com.example.notes.util.saveSelectedListId
 import com.example.notes.util.shortToast
 import com.example.notes.view.fragment.bottom_sheet.list.ListBottomFragment
 import com.example.notes.view.fragment.bottom_sheet.task.TaskBottomFragment
@@ -33,21 +34,26 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val prefManager = PreferenceManager(requireContext())
-        val savedId = prefManager.getInt(ARG_SELECTED) ?: 0
 
-        val selectedListId: Int = arguments?.getInt(ARG_SELECTED) ?: savedId
-        prefManager.saveInt(ARG_SELECTED, selectedListId)
-
-        viewModel.getTaskListById(selectedListId)
+        val selectedListId: Int = arguments?.getInt(ARG_SELECTED) ?: context?.getSelectedListId() ?: 0
+        context?.saveSelectedListId(selectedListId)
 
         with(viewModel) {
+            getTaskListById(selectedListId)
+            getCommonTasksById(selectedListId)
+
             error.observe(viewLifecycleOwner) {
                 context?.shortToast(it)
             }
 
             taskList.observe(viewLifecycleOwner) {
                 task_list_name.text = it.listName
+            }
+
+            tasks.observe(viewLifecycleOwner) {
+                tasks_recycler.adapter = TasksAdapter(it) {
+                    context?.shortToast(it.taskName)
+                }
             }
         }
 
@@ -64,7 +70,10 @@ class MainFragment : Fragment() {
 
         bottom_app_bar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.app_bar_settings -> listBottomFragment.show(childFragmentManager, listBottomFragment.tag)
+                R.id.app_bar_settings -> listBottomFragment.show(
+                    childFragmentManager,
+                    listBottomFragment.tag
+                )
             }
             true
         }

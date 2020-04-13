@@ -9,7 +9,7 @@ import com.example.notes.R
 import com.example.notes.util.Constants.ARG_SELECTED
 import com.example.notes.util.observe
 import com.example.notes.util.shortToast
-import com.example.notes.view.fragment.MainViewModel
+import com.example.notes.view.fragment.main.MainViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_list_bottom.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel

@@ -1,11 +1,11 @@
 package com.example.notes.repo
 
-import com.example.notes.db.dao.SubtaskDao
-import com.example.notes.db.dao.TaskDao
-import com.example.notes.db.dao.TaskListDao
-import com.example.notes.db.entity.Subtask
-import com.example.notes.db.entity.Task
-import com.example.notes.db.entity.TaskList
+import com.example.notes.model.db.dao.SubtaskDao
+import com.example.notes.model.db.dao.TaskDao
+import com.example.notes.model.db.dao.TaskListDao
+import com.example.notes.model.db.entity.Subtask
+import com.example.notes.model.db.entity.Task
+import com.example.notes.model.db.entity.TaskList
 
 class DbRepository(
     private val taskListDao: TaskListDao,

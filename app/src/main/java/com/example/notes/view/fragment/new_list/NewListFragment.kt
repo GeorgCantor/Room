@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.notes.R
-import com.example.notes.db.entity.TaskList
-import com.example.notes.view.fragment.MainViewModel
+import com.example.notes.model.db.entity.TaskList
+import com.example.notes.view.fragment.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_new_list.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf

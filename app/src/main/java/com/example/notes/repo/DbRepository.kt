@@ -24,7 +24,7 @@ class DbRepository(
 
     fun insert(task: Task) = taskDao.insert(task)
 
-    fun delete(task: Task) = taskDao.delete(task)
+    fun deleteTaskById(id: Int) = taskDao.deleteById(id)
 
     fun getTasksFromList(taskListId: Int) = taskDao.getTasksFromList(taskListId)
 
@@ -35,5 +35,5 @@ class DbRepository(
 
     fun insert(subtask: Subtask) = subtaskDao.insert(subtask)
 
-    fun delete(subtask: Subtask) = subtaskDao.delete(subtask)
+    fun deleteById(id: Int) = subtaskDao.deleteById(id)
 }

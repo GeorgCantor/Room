@@ -1,6 +1,9 @@
 package com.example.notes.model.db.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.example.notes.model.db.entity.Subtask
 import io.reactivex.Flowable
 
@@ -13,6 +16,6 @@ interface SubtaskDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(subtask: Subtask)
 
-    @Delete
-    fun delete(subtask: Subtask)
+    @Query("Delete FROM Subtask where id LIKE  :id")
+    fun deleteById(id: Int)
 }

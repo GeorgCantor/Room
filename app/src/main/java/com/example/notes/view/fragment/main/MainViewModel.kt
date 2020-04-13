@@ -112,6 +112,15 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
             .subscribe()
     }
 
+    fun deleteTask(id: Int) {
+        Observable.fromCallable {
+            repository.deleteTaskById(id)
+            repository.deleteById(id)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
     fun insertTask(task: Task) {
         Observable.fromCallable {
             repository.insert(task)

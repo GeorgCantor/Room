@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
             }
 
             tasks.observe(viewLifecycleOwner) {
-                tasks_recycler.adapter = TasksAdapter(it) {
+                tasks_recycler.adapter = TasksAdapter(it, {
                     findNavController(this@MainFragment).navigate(
                         R.id.action_mainFragment_to_taskFragment,
                         Bundle().apply {
@@ -70,7 +70,10 @@ class MainFragment : Fragment() {
                             )
                         }
                     )
-                }
+                }, {
+                    deleteTask(it.id)
+                    findNavController(this@MainFragment).navigate(R.id.action_mainFragment_self)
+                })
             }
         }
 

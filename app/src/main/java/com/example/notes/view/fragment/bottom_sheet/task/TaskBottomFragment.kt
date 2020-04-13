@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.notes.R
 import com.example.notes.model.db.entity.Task
 import com.example.notes.util.*
@@ -20,6 +22,7 @@ class TaskBottomFragment : BottomSheetDialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.DialogStyle)
         viewModel = getViewModel { parametersOf() }
     }
 
@@ -51,7 +54,7 @@ class TaskBottomFragment : BottomSheetDialogFragment() {
                         taskCompleted = false
                     )
                 )
-                this@TaskBottomFragment.dismiss()
+                findNavController(this@TaskBottomFragment).navigate(R.id.action_mainFragment_self)
             }
         }
     }

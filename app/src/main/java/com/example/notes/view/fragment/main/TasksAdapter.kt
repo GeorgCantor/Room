@@ -1,13 +1,16 @@
 package com.example.notes.view.fragment.main
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.notes.R
 import com.example.notes.model.CommonTask
+import com.example.notes.util.showSingleAnimation
 import kotlinx.android.synthetic.main.item_subtask.view.*
 import kotlinx.android.synthetic.main.item_task.view.*
 import kotlinx.android.synthetic.main.item_task.view.line
@@ -62,9 +65,16 @@ class TasksAdapter(
 
         when (holder) {
             is TaskViewHolder -> {
-                holder.name.text = task.taskName
-                holder.itemView.setOnClickListener { clickListener(task) }
-                holder.circle.setOnClickListener { circleClickListener(holder.itemView, task) }
+                with(holder) {
+                    name.text = task.taskName
+                    itemView.setOnClickListener { clickListener(task) }
+                    circle.setOnClickListener {
+                        animation.showSingleAnimation()
+                        Handler().postDelayed({
+                            circleClickListener(itemView, task)
+                        }, 800)
+                    }
+                }
             }
             is SubTaskViewHolder -> {
                 holder.name.text = task.taskName
@@ -84,6 +94,7 @@ class TasksAdapter(
     class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name: TextView = view.task_name
         val circle: ImageView = view.circle_image
+        val animation: LottieAnimationView = view.complete_animation
         val bottomLine: View = view.line
     }
 

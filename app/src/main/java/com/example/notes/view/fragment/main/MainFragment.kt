@@ -72,13 +72,14 @@ class MainFragment : Fragment() {
                     )
                 }, { view, task ->
                     tasks_recycler.findContainingItemView(view)?.visibility = GONE
-                    context?.showOneButtonDialog(
-                        getString(R.string.app_name),
-                        getString(R.string.task_marked_as_complete),
-                        { recoverRemovedTasks(view) }, { removeTask(task.id) })
+                    requireView().showSnackbar(
+                        getString(R.string.task_completed, task.taskName),
+                        getString(R.string.cancel),
+                        { removeTask(task.id) },
+                        { recoverRemovedTasks(view) }
+                    )
                 }, {
                     deleteSubtask(it.id)
-                    findNavController(this@MainFragment).navigate(R.id.action_mainFragment_self)
                 })
 
                 tasks_recycler.adapter = adapter
@@ -107,8 +108,12 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun removeTask(id:Int) {
-         viewModel.deleteTask(id)
+    private fun removeTask(id: Int) {
+        viewModel.deleteTask(id)
+        try {
+            findNavController(this@MainFragment).navigate(R.id.action_mainFragment_self)
+        } catch (e: IllegalArgumentException) {
+        }
     }
 
     private fun recoverRemovedTasks(view: View) {

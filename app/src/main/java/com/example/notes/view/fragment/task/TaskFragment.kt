@@ -11,6 +11,7 @@ import com.example.notes.model.db.entity.Subtask
 import com.example.notes.model.db.entity.Task
 import com.example.notes.util.Constants.ARG_TASK
 import com.example.notes.util.getRandomId
+import com.example.notes.util.hideKeyboard
 import com.example.notes.view.fragment.main.MainViewModel
 import kotlinx.android.synthetic.main.fragment_task.*
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -53,6 +54,7 @@ class TaskFragment : Fragment() {
             )
 
             findNavController(this).navigate(R.id.action_taskFragment_to_mainFragment)
+            requireView().hideKeyboard()
         }
     }
 }

@@ -16,6 +16,7 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
     val taskList = MutableLiveData<TaskList>()
     val taskLists = MutableLiveData<MutableList<TaskList>>()
     val tasks = MutableLiveData<MutableList<CommonTask>>()
+    val removedTasks = MutableLiveData<MutableList<CommonTask>>()
 
     init {
         Observable.fromCallable {
@@ -114,7 +115,54 @@ class MainViewModel(private val repository: DbRepository) : ViewModel() {
 
     fun deleteTask(id: Int) {
         Observable.fromCallable {
+            val commonTasks = mutableListOf<CommonTask>()
+
+            repository.getTaskById(id)
+                .subscribe({
+                    commonTasks.add(
+                        CommonTask(
+                            id = it.id,
+                            taskListId = it.taskListId,
+                            taskName = it.taskName,
+                            taskDetails = it.taskDetails,
+                            taskDate = it.taskDate,
+                            taskCompleted = it.taskCompleted,
+                            isSubtask = false
+                        )
+                    )
+                }, {
+                    error.postValue(it.message)
+                })
+
+            repository.findSubtasksFromTask(id).subscribe({
+                it.map {
+                    commonTasks.add(
+                        CommonTask(
+                            id = it.taskId,
+                            taskListId = it.taskId,
+                            taskName = it.subtaskName,
+                            taskDetails = it.subtaskName,
+                            taskDate = null,
+                            taskCompleted = it.taskCompleted,
+                            isSubtask = true
+                        )
+                    )
+                }
+            }, {
+                error.postValue(it.message)
+            })
+
+            removedTasks.postValue(commonTasks)
+
             repository.deleteTaskById(id)
+            repository.deleteById(id)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+    }
+
+    fun deleteSubtask(id: Int) {
+        Observable.fromCallable {
             repository.deleteById(id)
         }
             .subscribeOn(Schedulers.io())

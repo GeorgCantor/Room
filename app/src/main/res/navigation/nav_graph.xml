@@ -28,6 +28,10 @@
     <fragment
         android:id="@+id/taskFragment"
         android:name="com.example.notes.view.fragment.task.TaskFragment"
-        android:label="TaskFragment" />
+        android:label="TaskFragment" >
+        <action
+            android:id="@+id/action_taskFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
 </navigation>

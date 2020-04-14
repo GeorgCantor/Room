@@ -8,4 +8,6 @@
     <string name="input_list_name">Введите название списка</string>
     <string name="input_name">Введите название</string>
     <string name="save">Сохранить</string>
+    <string name="task_marked_as_complete">Задачи отмечены как выполненные</string>
+    <string name="cancel">Отменить</string>
 </resources>

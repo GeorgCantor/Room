@@ -3,17 +3,16 @@ package com.example.notes.view.fragment.main
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.notes.R
 import com.example.notes.model.db.entity.Task
+import com.example.notes.util.*
 import com.example.notes.util.Constants.ARG_SELECTED
 import com.example.notes.util.Constants.ARG_TASK
-import com.example.notes.util.getSelectedListId
-import com.example.notes.util.observe
-import com.example.notes.util.saveSelectedListId
-import com.example.notes.util.shortToast
 import com.example.notes.view.fragment.bottom_sheet.list.ListBottomFragment
 import com.example.notes.view.fragment.bottom_sheet.task.TaskBottomFragment
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -23,6 +22,7 @@ import org.koin.core.parameter.parametersOf
 class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var adapter: TasksAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +54,7 @@ class MainFragment : Fragment() {
             }
 
             tasks.observe(viewLifecycleOwner) {
-                tasks_recycler.adapter = TasksAdapter(it, {
+                adapter = TasksAdapter(it, {
                     findNavController(this@MainFragment).navigate(
                         R.id.action_mainFragment_to_taskFragment,
                         Bundle().apply {
@@ -70,10 +70,18 @@ class MainFragment : Fragment() {
                             )
                         }
                     )
+                }, { view, task ->
+                    tasks_recycler.findContainingItemView(view)?.visibility = GONE
+                    context?.showOneButtonDialog(
+                        getString(R.string.app_name),
+                        getString(R.string.task_marked_as_complete),
+                        { recoverRemovedTasks(view) }, { removeTask(task.id) })
                 }, {
-                    deleteTask(it.id)
+                    deleteSubtask(it.id)
                     findNavController(this@MainFragment).navigate(R.id.action_mainFragment_self)
                 })
+
+                tasks_recycler.adapter = adapter
             }
         }
 
@@ -97,5 +105,13 @@ class MainFragment : Fragment() {
             }
             true
         }
+    }
+
+    private fun removeTask(id:Int) {
+         viewModel.deleteTask(id)
+    }
+
+    private fun recoverRemovedTasks(view: View) {
+        tasks_recycler.findContainingItemView(view)?.visibility = VISIBLE
     }
 }

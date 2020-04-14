@@ -28,6 +28,8 @@ class DbRepository(
 
     fun getTasksFromList(taskListId: Int) = taskDao.getTasksFromList(taskListId)
 
+    fun getTaskById(taskId: Int) = taskDao.getTaskById(taskId)
+
     fun getAllTasks() = taskDao.getAllTasks()
 
 

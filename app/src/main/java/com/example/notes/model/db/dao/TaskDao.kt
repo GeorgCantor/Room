@@ -21,4 +21,7 @@ interface TaskDao {
 
     @Query("SELECT * FROM Task")
     fun getAllTasks(): Flowable<List<Task>>
+
+    @Query("SELECT * FROM Task WHERE id = :taskId")
+    fun getTaskById(taskId: Int): Flowable<Task>
 }

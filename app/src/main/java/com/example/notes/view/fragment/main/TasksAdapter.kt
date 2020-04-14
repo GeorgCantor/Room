@@ -15,7 +15,8 @@ import kotlinx.android.synthetic.main.item_task.view.line
 class TasksAdapter(
     tasks: MutableList<CommonTask>,
     private val clickListener: (CommonTask) -> Unit,
-    private val circleClickListener: (CommonTask) -> Unit
+    private val circleClickListener: (View, CommonTask) -> Unit,
+    private val circleSubClickListener: (CommonTask) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -28,6 +29,12 @@ class TasksAdapter(
     init {
         this.tasks.addAll(tasks)
         this.tasks.sortBy { it.id }
+    }
+
+    fun updateTasks(tasks: MutableList<CommonTask>) {
+        this.tasks.addAll(tasks)
+        this.tasks.sortBy { it.id }
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -57,11 +64,12 @@ class TasksAdapter(
             is TaskViewHolder -> {
                 holder.name.text = task.taskName
                 holder.itemView.setOnClickListener { clickListener(task) }
-                holder.circle.setOnClickListener { circleClickListener(task) }
+                holder.circle.setOnClickListener { circleClickListener(holder.itemView, task) }
             }
             is SubTaskViewHolder -> {
                 holder.name.text = task.taskName
                 holder.itemView.setOnClickListener { clickListener(task) }
+                holder.circle.setOnClickListener { circleSubClickListener(task) }
             }
         }
     }

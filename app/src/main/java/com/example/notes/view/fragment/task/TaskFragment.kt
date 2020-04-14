@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.example.notes.R
 import com.example.notes.model.db.entity.Subtask
 import com.example.notes.model.db.entity.Task
@@ -50,6 +51,8 @@ class TaskFragment : Fragment() {
                     taskCompleted = task?.taskCompleted ?: false
                 )
             )
+
+            findNavController(this).navigate(R.id.action_taskFragment_to_mainFragment)
         }
     }
 }
